@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductControler;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Client\ProductController as ClientProductController ;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuController as MenuControllerAlias;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +47,11 @@ Route::prefix("/paneladmin")->group(function (){
     Route::get('/product/{product}/edit',[ProductControler::class, 'edit'])->name("product.edit");
     Route::patch('/product/{product}',[ProductControler::class, 'update'])->name("product.update");
     Route::delete('/product/{product}',[ProductControler::class, 'destroy'])->name("product.destroy");
+});
+
+Route::prefix('')->name('client.')->group(function (){
+    Route::get('/',[MenuController::class,'index']);
+
+    Route::get('/product/{product}',[ClientProductController::class,'show'])->name('product.show');
 });
 
