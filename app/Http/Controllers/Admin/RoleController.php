@@ -1,20 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Http\Requests\NewCategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-
-
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\addRoleRequest;
+use App\Models\Permissions;
+use App\Models\Role;
+use Illuminate\Http\Request;
 
-use App\Http\Requests\NewCategoryRequest;
-use App\Models\Category;
-use Illuminate\Routing\Controller;
-class CategoryController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.index',[
-            'categories'=>Category::all()
+        return view("admin.role.index",[
+            'roles'=>Role::all()
         ]);
     }
 
@@ -35,9 +29,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.Categories.create',[
-            'categories'=>Category::all()
+        return view("admin.role.create",[
+            'permissions'=>Permissions::all()
         ]);
+
     }
 
     /**
@@ -46,37 +41,39 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NewCategoryRequest  $request)
+    public function store(addRoleRequest $request)
     {
-        Category::query()->create([
-            "Category_id"=>$request->get("category_id"),
-            "title"=>$request->get("title")
+        $role=Role::query()->create([
+            'title'=>$request->get('title')
         ]);
-        return redirect("/paneladmin/categories");
+        $role->permissions()->attach($request->get('permissions'));
+
+        return redirect(route("role.index"));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Role $role)
     {
-        return view('admin.categories.index',);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Role $role)
     {
-        return view('admin.categories.edit',[
-            'category'=>$category,
-            'categories'=>Category::all()
+        return view("admin.role.edit",
+        [
+            'roles'=>$role,
+            'permissions'=>Permissions::all()
         ]);
     }
 
@@ -84,29 +81,28 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(addRoleRequest $request, Role $role)
     {
-        $category->update([
-            "Category_id"=>$request->get("category-id"),
-            "title"=>$request->get("title")
+        $role->update([
+            'title'=>$request->get('title')
         ]);
-
-        return redirect('/paneladmin/categories');
+        $role->permissions()->sync($request->get('permissions'));
+        return redirect(route("role.index"));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Category $category
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-     * @throws \Exception
      */
-    public function destroy(Category $category)
+    public function destroy(Role $role)
     {
-        $category->delete();
-        return redirect('/paneladmin/categories');
+        $role->permissions()->detach();
+        $role->delete();
+        return redirect(route("role.index"));
     }
 }

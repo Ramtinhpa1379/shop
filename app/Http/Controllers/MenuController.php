@@ -12,9 +12,6 @@ class MenuController extends Controller
 {
     public function index()
     {
-        return view("client.home",[
-            'categories'=>Category::query()->where("category_id",null)->get(),
-            'brands'=>Brand::all()
-        ]);
+        return view("client.home");
     }
 }

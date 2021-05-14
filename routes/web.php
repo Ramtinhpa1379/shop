@@ -2,9 +2,18 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\PictureController;
 use App\Http\Controllers\Admin\ProductControler;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\propertyGroupsController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\ProductController as ClientProductController ;
+use App\Http\Controllers\Client\RegisterController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuController as MenuControllerAlias;
+use App\Http\Middleware\checkPermission;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[MenuControllerAlias::class,'index']);
-Route::prefix("/paneladmin")->group(function (){
+Route::prefix("/paneladmin")->middleware([checkPermission::class .":view_dashboard",'auth'])->group(function (){
     Route::get('/', function () {
         return view('admin.home');
     });
@@ -45,5 +54,22 @@ Route::prefix("/paneladmin")->group(function (){
     Route::get('/product/{product}/edit',[ProductControler::class, 'edit'])->name("product.edit");
     Route::patch('/product/{product}',[ProductControler::class, 'update'])->name("product.update");
     Route::delete('/product/{product}',[ProductControler::class, 'destroy'])->name("product.destroy");
+
+    Route::resource("products.picture",PictureController::class);
+    Route::resource("products.discount",DiscountController::class);
+    Route::resource("role",RoleController::class);
+    Route::resource("users",UserController::class);
+    Route::resource("properties",propertyGroupsController::class);
+
+});
+
+Route::prefix('')->name('client.')->group(function (){
+    Route::get('/',[MenuController::class,'index'])->name('index');
+    Route::get('/register',[RegisterController::class,'create'])->name('register');
+    Route::delete('/register/logout',[RegisterController::class,'logout'])->name("register.logout");
+    Route::post('/register/sendemail',[RegisterController::class,'sendemail'])->name("register.sendemail");
+    Route::post('/register/opt/{user}',[RegisterController::class,'opt'])->name("register.opt");
+    Route::get('/register/verify/{user}',[RegisterController::class,'verifyopt'])->name("register.verify");
+    Route::get('/product/{product}',[ClientProductController::class,'show'])->name('product.show');
 });
 
