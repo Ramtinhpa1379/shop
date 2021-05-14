@@ -92,10 +92,17 @@
                         </div>
                     </div>
                     <div id="top-links" class="nav pull-right flip">
+                        @auth()
+                            <form method="post" action="{{route("client.register.logout")}}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-sm btn-danger" value="خروج">
+                            </form>
+                        @else
                         <ul>
-                            <li><a href="login.html">ورود</a></li>
-                            <li><a href="register.html">ثبت نام</a></li>
+                            <li><a href="{{route("client.register")}}">ورود / ثبت نام </a></li>
                         </ul>
+                        @endauth
                     </div>
                 </div>
             </div>

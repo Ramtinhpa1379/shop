@@ -19,6 +19,8 @@
                                 <th>قیمت</th>
                                 <th>تاریخ ایجاد</th>
                                 <th>تصویر</th>
+                                <th>تخفیف</th>
+                                <th>گالری</th>
                                 <th>ویرایش</th>
                                 <th>حذف</th>
                             </tr>
@@ -34,8 +36,28 @@
                                     <td></td>
                                     <td><img width="50px" src="{{str_replace('public','/storage',$product->image)}}"/></td>
                                     <td>
+                                        @if(!$product->discount()->exists())
+                                        <form action="{{route("products.discount.create",$product)}}">
+                                        <input class="btn btn-sm btn-success" type="submit" value="تخفیف" >
+                                        </form>
+                                        @else
+                                            <p>{{$product->discount->value}}</p>
+                                            <form action="{{route("products.discount.destroy",['product'=>$product,'discount'=>$product->discount])}}" method="post">
+                                                @csrf
+                                                @method("DELETE")
+                                                <input type="submit" class="btn btn-sm btn-danger" value="حذف">
+                                            </form>
+                                        @endif
+                                    </td>
+                                    <td>
+
+                                            <a href="{{route("products.picture.index",$product)}}" class="btn btn-sm btn-warning">گالری</a>
+
+                                    </td>
+                                    <td>
                                         <a href="{{Route("product.edit",$product)}}" class="btn btn-sm btn-primary">ویرایش </a>
                                     </td>
+
                                     <td>
                                         <form action="{{Route("product.destroy",$product)}}" method="post" >
                                             @csrf

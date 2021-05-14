@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+
+        /*view()->share('categories',Category::query()->where("category_id",null)->get());
+        view()->share('brands',Brand::all());
+*/
+        \view()->composer(['client.products.show','client.home','client.layout.master'],function ($view){
+            $view->with([
+                'categories'=>Category::query()->where("category_id",null)->get(),
+                'brands'=>Brand::all()
+            ]);
+        });
+
+
     }
 }

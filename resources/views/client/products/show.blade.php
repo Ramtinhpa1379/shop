@@ -20,7 +20,12 @@
                             <div class="col-sm-6">
                                 <div class="image"><img class="img-responsive" itemprop="image" id="zoom_01" src="{{str_replace('public','/storage',$product->image)}}" title="{{$product->name}}" alt="{{$product->name}}" data-zoom-image="image/product/macbook_air_1-500x500.jpg" /> </div>
                                 <div class="center-block text-center"><span class="zoom-gallery"><i class="fa fa-search"></i> برای مشاهده گالری روی تصویر کلیک کنید</span></div>
-                                <div class="image-additional" id="gallery_01"> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_1-500x500.jpg" data-image="image/product/macbook_air_1-350x350.jpg" title="لپ تاپ ایلین ور"> <img src="image/product/macbook_air_1-66x66.jpg" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_4-500x500.jpg" data-image="image/product/macbook_air_4-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_4-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_2-500x500.jpg" data-image="image/product/macbook_air_2-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_2-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_3-500x500.jpg" data-image="image/product/macbook_air_3-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_3-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> </div>
+                                <div class="image-additional" id="gallery_01">
+                                    <a class="thumbnail" href="{{str_replace('public','/storage',$product->image)}}" data-zoom-image="{{str_replace('public','/storage',$product->image)}}" data-image="{{str_replace('public','/storage',$product->image)}}" title="لپ تاپ ایلین ور"> <img src="{{str_replace('public','/storage',$product->image)}}" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/></a>
+                                    @foreach($product->pictures as $picture)
+                                    <a class="thumbnail" href="{{str_replace('public','/storage',$picture->path)}}" data-zoom-image="{{str_replace('public','/storage',$picture->path)}}" data-image="{{str_replace('public','/storage',$picture->path)}}" title="لپ تاپ ایلین ور"> <img src="{{str_replace('public','/storage',$picture->path)}}" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/></a>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <ul class="list-unstyled description">
@@ -30,8 +35,13 @@
                                     <li><b>وضعیت موجودی :</b> <span class="instock">موجود</span></li>
                                 </ul>
                                 <ul class="price-box">
-                                    <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span class="price-old">{{$product->cost}} تومان</span> <span itemprop="price">{{$product->cost}} تومان<span itemprop="availability" content="موجود"></span></span></li>
-                                    <li></li>
+                                    <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    @if($product->discount()->exists())
+                                            <span class="price-old">{{$product->cost}} تومان</span>
+                                    @endif
+                                    <span itemprop="price">{{$product->cost_With_Discount}}تومان </span>
+                                    <span itemprop="availability" content="موجود"></span></li>
+
                                     <li>بدون مالیات : {{$product->cost}} تومان</li>
                                 </ul>
                                 <div id="product">

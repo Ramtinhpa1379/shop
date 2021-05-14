@@ -39,180 +39,21 @@
                     <h3 class="subtitle">دسته ها</h3>
                     <div class="box-category">
                         <ul id="cat_accordion">
-                            <li><a href="category.html">البسه</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">آقایان</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">بانوان</a></li>
-                                    <li><a href="category.html">دخترانه</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">پسرانه</a></li>
-                                    <li><a href="category.html">نوزاد</a></li>
-                                    <li><a href="category.html">لوازم</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            @foreach($categories as $category)
+                            <li><a href="category.html">{{$category->title}}</a>
+                                @if($category->child()->count() > 0)
+                                    <span class="down"></span>
+                                    <ul>
+                                        @foreach($category->child as $subcategory)
+                                            <li>
+                                                <a href="category.html">{{$subcategory->title}}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
                             </li>
-                            <li><a href="category.html">الکترونیکی</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">لپ تاپ</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="custom_id68"><a href="category.html">رومیزی</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">دوربین</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">موبایل و تبلت</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">صوتی و تصویری</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">لوازم خانگی</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">کفش</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">آقایان</a></li>
-                                    <li><a href="category.html">بانوان</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">دخترانه</a></li>
-                                    <li><a href="category.html">پسرانه</a></li>
-                                    <li><a href="category.html">نوزاد</a></li>
-                                    <li><a href="category.html">لوازم</a><span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته ها</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">ساعت</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">ساعت مردانه</a></li>
-                                    <li><a href="category.html">ساعت زنانه</a></li>
-                                    <li><a href="category.html">ساعت بچگانه</a></li>
-                                    <li><a href="category.html">لوازم</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">جواهرات</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">نقره</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">طلا</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">تست 1</a></li>
-                                            <li><a href="category.html">تست 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">الماس</a></li>
-                                    <li><a href="category.html">مروارید</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">زیورآلات آقایان</a></li>
-                                    <li><a href="category.html">زیورآلات کودکان</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">زیردسته های جدید</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">زیبایی و سلامت</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">عطر و ادکلن</a></li>
-                                    <li><a href="category.html">آرایشی</a></li>
-                                    <li><a href="category.html">ضد آفتاب</a></li>
-                                    <li><a href="category.html">مراقبت از پوست</a></li>
-                                    <li><a href="category.html">مراقبت از چشم</a></li>
-                                    <li><a href="category.html">مراقبت از مو</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">کودک و نوزاد</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">اسباب بازی</a></li>
-                                    <li><a href="category.html">بازی</a> <span class="down"></span>
-                                        <ul>
-                                            <li><a href="category.html">تست 25</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="category.html">پازل</a></li>
-                                    <li><a href="category.html">سرگرمی</a></li>
-                                    <li><a href="category.html">متنوع</a></li>
-                                    <li><a href="category.html">سلامت و امنیت</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">ورزشی</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">دوچرخه سواری</a></li>
-                                    <li><a href="category.html">دویدن</a></li>
-                                    <li><a href="category.html">شنا</a></li>
-                                    <li><a href="category.html">فوتبال</a></li>
-                                    <li><a href="category.html">گلف</a></li>
-                                    <li><a href="category.html">موج سواری</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">خانه و باغچه</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">لوازم خواب</a></li>
-                                    <li><a href="category.html">خوراک</a></li>
-                                    <li><a href="category.html">لوازم منزل</a></li>
-                                    <li><a href="category.html">آشپزخانه</a></li>
-                                    <li><a href="category.html">روشنایی</a></li>
-                                    <li><a href="category.html">ابزارها</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="category.html">خوراک</a> <span class="down"></span>
-                                <ul>
-                                    <li><a href="category.html">نوشیدنی</a></li>
-                                    <li><a href="category.html">تنقلات</a></li>
-                                    <li><a href="category.html">میان وعده</a></li>
-                                    <li><a href="category.html">خشک بار</a></li>
-                                    <li><a href="category.html">شکلات</a></li>
-                                </ul>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <h3 class="subtitle">پرفروش ها</h3>
@@ -888,12 +729,22 @@
                         @foreach($categories as $category)
                         <h3 class="subtitle">{{$category->title}} <a class="viewall" href="category.html">نمایش همه</a></h3>
                         <div class="owl-carousel latest_category_carousel">
-                            @foreach($category->products as $products)
+                            @foreach($category->getAllSubProducts() as $products)
                                 <div class="product-thumb">
                                     <div class="image"><a href="{{route('client.product.show',$products)}}"><img src="{{str_replace('public','/storage',$products->image)}}" alt="کرم مو آقایان" title="کرم مو آقایان" class="img-responsive" /></a></div>
                                     <div class="caption">
                                         <h4><a href="{{route('client.product.show',$products)}}">{{$products->name}}</a></h4>
-                                        <p class="price"> {{$products->cost}}</p>
+
+                                        <p class="price">
+                                        @if($products->discount()->exists())
+                                            <span class="price-old"> {{$products->cost}} تومان</span>
+                                            <span class="saving">-{{optional($products->discount)->value}}%</span>
+                                        @endif
+
+                                            <span class="price-new">{{$products->cost_With_Discount}} تومان</span>
+                                        </p>
+
+
                                         <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                                     </div>
                                     <div class="button-group">
