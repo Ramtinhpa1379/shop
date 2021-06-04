@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="image/favicon.png" rel="icon" />
     <title>مارکت شاپ - قالب HTML فروشگاهی</title>
     <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
@@ -20,6 +21,11 @@
     <link rel="stylesheet" type="text/css" href="/client/css/responsive-rtl.css" />
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans' type='text/css'>
     <!-- CSS Part End-->
+    <style>
+        .like{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper-wide">
@@ -61,7 +67,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="#">لیست علاقه مندی (0)</a></li>
+                                <li><a href="{{route('client.like.index')}}">لیست علاقه مندی ({{optional(auth()->user()->likes())->count()}})</a></li>
                                 <li><a href="checkout.html">تسویه حساب</a></li>
                             </ul>
                         </div>
@@ -321,6 +327,42 @@
 <script type="text/javascript" src="/client/js/jquery.dcjqaccordion.min.js"></script>
 <script type="text/javascript" src="/client/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/client/js/custom.js"></script>
+    <script>
+        function like(ProductId){
+            $.ajax({
+                type: "post",
+                url:  "/likes/"+ ProductId,
+                data: {
+                    _token : "{{csrf_token()}}"
+                },
+                success: function (data){
+                    var icon=$('#like-'+ProductId+'>.fa-heart');
+                    if(icon.hasClass('like')){
+                        icon.removeClass('like');
+                    }
+                    else{
+                        icon.addClass('like');
+                    }
+                }
+
+            });
+
+        }
+
+        function addToCart(ProductId){
+            var quantity=$('#input-quantity').val();
+            $.ajax({
+                type:"post",
+                url: "/cart/store",
+                data:{
+                    _token:{{csrf_token()}},
+                    ProductId: ProductId,
+                    quantity: quantity
+
+                }
+            })
+        }
+    </script>
 <!-- JS Part End-->
 </body>
 </html>

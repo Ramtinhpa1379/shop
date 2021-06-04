@@ -69,5 +69,20 @@ class User extends Authenticatable
         Mail::to($request->get("email"))->send(new OptMail($opt));
         return $user;
     }
+    public function likes()
+    {
+        return $this->belongsToMany(Product::class,'like')->withTimestamps();
+    }
+    public function like($product)
+    {
+        $isLikedBefore=$this->likes()->where('id',$product->id)->exists();
+        if($isLikedBefore){
+            return $this->likes()->detach($product);
+        }
+        else{
+            return $this->likes()->sync($product);
+        }
+
+    }
 
 }

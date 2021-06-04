@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         /*view()->share('categories',Category::query()->where("category_id",null)->get());
         view()->share('brands',Brand::all());
 */
-        \view()->composer(['client.products.show','client.home','client.layout.master'],function ($view){
+        \view()->composer(['client.products.show','client.home','client.layout.master','client.categories.index'],function ($view){
             $view->with([
                 'categories'=>Category::query()->where("category_id",null)->get(),
                 'brands'=>Brand::all()

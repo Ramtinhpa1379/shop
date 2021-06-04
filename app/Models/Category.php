@@ -25,6 +25,16 @@ class Category extends Model
         return $this->hasMany(Product::class,'Category_id');
     }
 
+    public function property_group()
+    {
+        return $this->belongsToMany(propertyGroups::class);
+    }
+
+    public function hasPropertyGroup(propertyGroups $propertyGroups)
+    {
+        return $this->property_group()->where('property_groups_id',$propertyGroups->id)->exists();
+    }
+
     public function getAllSubProducts()
     {
         $child_id=$this->child()->pluck('id');
