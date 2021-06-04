@@ -14,6 +14,16 @@ class Product extends Model
     use HasFactory;
     protected $guarded=[];
 
+    public function likes()
+    {
+        $this->belongsToMany(User::class,'like')->withTimestamps();
+    }
+
+
+    public function comments()
+    {
+        return $this->hasMany(comments::class);
+    }
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -63,6 +73,11 @@ class Product extends Model
                 'value'=>$request->get('value')
             ]);
         }
+    }
+
+    public function properties()
+    {
+        return $this->belongsToMany(properties::class)->withPivot('value')->withTimestamps();
     }
 
     public function deleteDiscount()

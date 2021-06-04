@@ -20,6 +20,8 @@
                                 <th>تاریخ ایجاد</th>
                                 <th>تصویر</th>
                                 <th>تخفیف</th>
+                                <th>ویژگی ها</th>
+                                <th>کامنت ها</th>
                                 <th>گالری</th>
                                 <th>ویرایش</th>
                                 <th>حذف</th>
@@ -52,6 +54,14 @@
                                     <td>
 
                                             <a href="{{route("products.picture.index",$product)}}" class="btn btn-sm btn-warning">گالری</a>
+
+                                    </td>
+                                    <td>
+                                        <a href="{{route("products.comments.index",$product)}}" class="btn btn-sm btn-primary">کامنت ها</a>
+                                    </td>
+                                    <td>
+
+                                            <a href="{{route("product.property.index",$product)}}" class="btn btn-sm btn-dark">ویژگی ها</a>
 
                                     </td>
                                     <td>

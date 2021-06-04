@@ -13,6 +13,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\NewCategoryRequest;
 use App\Models\Category;
+use App\Models\propertyGroups;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 class CategoryController extends Controller
 {
@@ -36,7 +38,8 @@ class CategoryController extends Controller
     public function create()
     {
         return view('admin.Categories.create',[
-            'categories'=>Category::all()
+            'categories'=>Category::all(),
+            'properties'=>propertyGroups::all()
         ]);
     }
 
@@ -48,10 +51,11 @@ class CategoryController extends Controller
      */
     public function store(NewCategoryRequest  $request)
     {
-        Category::query()->create([
+        $category=Category::query()->create([
             "Category_id"=>$request->get("category_id"),
             "title"=>$request->get("title")
         ]);
+        $category->property_group()->attach($request->get('properties'));
         return redirect("/paneladmin/categories");
     }
 
@@ -76,7 +80,8 @@ class CategoryController extends Controller
     {
         return view('admin.categories.edit',[
             'category'=>$category,
-            'categories'=>Category::all()
+            'categories'=>Category::all(),
+            'properties'=>propertyGroups::all()
         ]);
     }
 
@@ -85,7 +90,7 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Category $category)
     {
@@ -93,7 +98,7 @@ class CategoryController extends Controller
             "Category_id"=>$request->get("category-id"),
             "title"=>$request->get("title")
         ]);
-
+        $category->property_group()->sync($request->get('properties'));
         return redirect('/paneladmin/categories');
     }
 
@@ -106,6 +111,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->property_group()->detach();
         $category->delete();
         return redirect('/paneladmin/categories');
     }
